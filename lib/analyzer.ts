@@ -128,7 +128,10 @@ async function fetchRawFile(owner: string, repo: string, branch: string, path: s
   const fileData = await githubFetch<{ content?: string; encoding?: string }>(apiUrl, token)
   if (fileData?.content && fileData.encoding === "base64") {
     try {
-      return Buffer.from(fileData.content, "base64").toString("utf-8")
+      if (typeof Buffer !== "undefined") {
+        return Buffer.from(fileData.content, "base64").toString("utf-8")
+      }
+      return decodeURIComponent(escape(atob(fileData.content.replace(/\s/g, ""))))
     } catch {}
   }
 

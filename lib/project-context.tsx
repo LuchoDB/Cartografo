@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useEffect, useState, useCallback } from "react"
 import { DEFAULT_PROJECT_DATA, type ProjectData, type Role, type Module } from "./data"
 import { saveConfig, loadConfig } from "./session"
+import { analyzeRepository, analyzeZipBuffer } from "./analyzer"
 
 interface ProjectContextType {
   data: ProjectData
@@ -153,26 +154,37 @@ export function ProjectProvider({ children }: { children: React.ReactNode }) {
       setAnalysisError(null)
       setAnalysisAgentIndex(0)
 
-      // Start simulated agent progression while API processes
+      // Start simulated agent progression while processing
       const interval = setInterval(() => {
         setAnalysisAgentIndex((prev) => Math.min(8, prev + 1))
       }, 500)
 
       try {
-        const res = await fetch("/api/analyze", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ url, role, moduleId, token }),
-        })
+        let projectData: ProjectData
 
-        const json = await res.json()
-        clearInterval(interval)
+        try {
+          const res = await fetch("/api/analyze", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ url, role, moduleId, token }),
+          })
 
-        if (!res.ok || !json.success) {
-          throw new Error(json.error || "No se pudo completar el análisis del repositorio.")
+          if (!res.ok) throw new Error("API endpoint unavailable")
+          const json = await res.json()
+          if (!json.success || !json.data) {
+            throw new Error(json.error || "Error en API")
+          }
+          projectData = json.data as ProjectData
+        } catch {
+          // Fallback to client-side analysis directly (required for static GitHub Pages)
+          projectData = await analyzeRepository(url.trim(), {
+            role,
+            moduleId,
+            token: token?.trim(),
+          })
         }
 
-        const projectData = json.data as ProjectData
+        clearInterval(interval)
         setAnalysisAgentIndex(9)
 
         // Cache this repo
@@ -216,24 +228,32 @@ export function ProjectProvider({ children }: { children: React.ReactNode }) {
       }, 500)
 
       try {
-        const formData = new FormData()
-        formData.append("file", file)
-        formData.append("role", role)
-        formData.append("moduleId", moduleId)
+        let projectData: ProjectData
 
-        const res = await fetch("/api/analyze-zip", {
-          method: "POST",
-          body: formData,
-        })
+        try {
+          const formData = new FormData()
+          formData.append("file", file)
+          formData.append("role", role)
+          formData.append("moduleId", moduleId)
 
-        const json = await res.json()
-        clearInterval(interval)
+          const res = await fetch("/api/analyze-zip", {
+            method: "POST",
+            body: formData,
+          })
 
-        if (!res.ok || !json.success) {
-          throw new Error(json.error || "No se pudo descomprimir o analizar el archivo .zip.")
+          if (!res.ok) throw new Error("API endpoint unavailable")
+          const json = await res.json()
+          if (!json.success || !json.data) {
+            throw new Error(json.error || "Error en API")
+          }
+          projectData = json.data as ProjectData
+        } catch {
+          // Fallback to client-side JSZip directly in browser (required for static GitHub Pages)
+          const arrayBuffer = await file.arrayBuffer()
+          projectData = await analyzeZipBuffer(arrayBuffer, file.name, { role, moduleId })
         }
 
-        const projectData = json.data as ProjectData
+        clearInterval(interval)
         setAnalysisAgentIndex(9)
         persistProject(projectData)
 
