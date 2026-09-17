@@ -237,6 +237,6 @@ Proyecto desarrollado para el Hackathon de Desarrollo de Software e IA.
 - **Email:** lucianodiazbertozzi@gmail.com
 - **Email:** ramironadalin8@gmail.com
 - **Email:** harahelayun54@gmail.com
-- [Luciano Díaz Bertozzi](https://www.linkedin.com/in/luciano-diaz-bertozzi)
-- [Ramiro Gastón Nadalin](https://www.linkedin.com/in/ramiro-gaston-nadalin-0a05a7430)
-- [Harahel Ayun](https://www.linkedin.com/in/harahel-ayun-4aa1b330b)
+- **LinkedIn** [Luciano Díaz Bertozzi](https://www.linkedin.com/in/luciano-diaz-bertozzi)
+- **LinkedIn** [Ramiro Gastón Nadalin](https://www.linkedin.com/in/ramiro-gaston-nadalin-0a05a7430)
+- **LinkedIn** [Harahel Ayun](https://www.linkedin.com/in/harahel-ayun-4aa1b330b)
