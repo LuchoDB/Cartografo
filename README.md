@@ -7,7 +7,7 @@
 [![React](https://img.shields.io/badge/React-19-blue?style=flat-square&logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-38bdf8?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
-[![GitHub Actions](https://img.shields.io/badge/Deploy-GitHub_Pages-success?style=flat-square&logo=github-actions)](https://github.com/LuchoDB/Proyecto_Hackathon/actions)
+[![GitHub Actions](https://img.shields.io/badge/Deploy-GitHub_Pages-success?style=flat-square&logo=github-actions)](https://github.com/LuchoDB/Cartografo/actions)
 
 ---
 
@@ -122,7 +122,7 @@ Cartógrafo ofrece 3 maneras de explorar un proyecto:
 ## 📂 Estructura del Proyecto
 
 ```
-Proyecto_Hackathon/
+cartografo/
 ├── .github/
 │   └── workflows/
 │       └── deploy.yml              # Pipeline de CI/CD para deploy en GitHub Pages
@@ -177,8 +177,8 @@ Proyecto_Hackathon/
 
 ### 1. Clonar el repositorio
 ```bash
-git clone https://github.com/LuchoDB/Proyecto_Hackathon.git
-cd Proyecto_Hackathon
+git clone https://github.com/LuchoDB/Cartografo.git
+cd Cartografo
 ```
 
 ### 2. Instalar dependencias
