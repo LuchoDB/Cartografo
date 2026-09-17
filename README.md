@@ -227,3 +227,16 @@ El proyecto está configurado para exportación estática completa (`output: 'ex
 ## 👥 Equipo & Hackathon
 
 Proyecto desarrollado para el Hackathon de Desarrollo de Software e IA.
+
+## Desarrollado por:
+
+### Luciano Diaz Bertozzi
+### Ramiro Nadalin
+### Harahel Jesús Ayun
+
+- **Email:** lucianodiazbertozzi@gmail.com
+- **Email:** ramironadalin8@gmail.com
+- **Email:** harahelayun54@gmail.com
+- **Linkedin** linkedin.com/in/luciano-diaz-bertozzi
+- **Linkedin** linkedin.com/in/ramiro-gaston-nadalin-0a05a7430
+- **Linkedin** linkedin.com/in/harahel-ayun-4aa1b330b
